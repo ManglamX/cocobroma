@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-brand: #2C1810;
-  --color-accent: #C8853A;
-  --color-bg: #FDF6EC;
-  --color-mid: #7B4F2E;
-  --color-text: #1A0F0A;
+  --color-brand: #0A0A0A;
+  --color-accent: #E5E0DA;
+  --color-bg: #0C0C0C;
+  --color-mid: #1A1A1A;
+  --color-text: #F4F4F4;
   --color-sage: #8DAA8F;
   --color-yuzu: #E8C84A;
   --color-rose: #E88C9A;
 
-  --font-display: "Playfair Display", serif;
-  --font-ui: "DM Sans", sans-serif;
-  --font-body: "Lato", sans-serif;
-  --font-mono: "Space Mono", monospace;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-ui: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "Space Grotesk", monospace;
 
-  --radius-card: 20px;
+  --radius-card: 0px; /* Sharp corners for premium feel */
 
-  --shadow-amber: 0 12px 32px rgba(200, 133, 58, 0.25);
-  --shadow-amber-sm: 0 4px 16px rgba(200, 133, 58, 0.15);
+  --shadow-amber: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --shadow-amber-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 body {
@@ -27,40 +27,14 @@ body {
   font-family: var(--font-body);
 }
 
-/* ── Grain texture overlay ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  background-image: url('/svgs/grain-texture.svg');
-  opacity: 0.03;
-}
-
 /* ── Scroll progress bar ── */
 #scroll-progress {
   position: fixed;
   top: 0; left: 0;
   height: 2px;
-  background: var(--color-accent);
+  background: var(--color-text);
   z-index: 10000;
   transition: width 50ms linear;
-}
-
-/* ── Custom cursor (desktop) ── */
-@media (pointer: fine) {
-  body { cursor: none; }
-  .cursor-dot {
-    position: fixed;
-    width: 10px; height: 10px;
-    background: var(--color-accent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10001;
-    transition: transform 200ms ease;
-  }
-  .cursor-dot.expanded { transform: scale(2.5); }
 }
 
 /* ── Reveal animation class ── */

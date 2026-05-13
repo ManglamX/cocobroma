@@ -1,6 +1,6 @@
 export default function AccessibilityStatementPage() {
   return (
-    <main className="min-h-screen pt-24 pb-16 bg-[var(--color-bg)]">
+    <main className="min-h-screen pt-24 pb-16 bg-transparent">
       <div className="max-w-3xl mx-auto px-6">
         <h1 className="font-display text-4xl md:text-5xl text-[var(--color-brand)] mb-8">Accessibility Statement</h1>
         

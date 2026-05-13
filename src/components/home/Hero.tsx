@@ -1,107 +1,127 @@
 'use client';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import BlurText from '@/components/ui/BlurText';
-import MagneticButton from '@/components/ui/MagneticButton';
-import AnimatedBackground from '@/components/ui/AnimatedBackground';
-
-const HEADLINE = "Born in Bali. Brewed in Mumbai.";
-const TRUST_BADGES = [
-  '3 Outlets in Mumbai',
-  '10AM–11PM Daily',
-  '80+ Menu Items',
-  '100% Non-Alcoholic',
-  '24hr Cold Brews',
-];
+import { ArrowRight } from 'lucide-react';
 
 export default function Hero() {
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 1000], [0, -100]);
-  const y2 = useTransform(scrollY, [0, 1000], [0, -200]);
-  const y3 = useTransform(scrollY, [0, 1000], [0, -50]);
-
   return (
-    <section className="relative min-h-screen bg-[var(--color-brand)] overflow-hidden flex flex-col pt-16">
-      {/* Animated Canvas Background */}
-      <AnimatedBackground />
+    <section className="relative min-h-screen bg-transparent flex items-center overflow-hidden pt-20">
+      {/* Ambient background glow behind the cup */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--color-text)] opacity-[0.02] blur-[120px] rounded-full pointer-events-none" />
 
-      {/* Grain overlay */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0"
-           style={{ backgroundImage: 'url(/svgs/grain-texture.svg)' }} />
+      <div className="max-w-screen-2xl mx-auto w-full px-6 grid lg:grid-cols-2 gap-16 lg:gap-8 items-center relative z-10">
+        
+        {/* Left Column - Content */}
+        <div className="flex flex-col items-start pt-10 lg:pt-0">
+          
+          {/* Stats Row */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="flex gap-8 mb-12 font-mono"
+          >
+            <div>
+              <p className="text-2xl font-display text-[var(--color-text)]">3</p>
+              <p className="text-[10px] uppercase tracking-widest text-[var(--color-text)]/40 mt-1">Outlets</p>
+            </div>
+            <div>
+              <p className="text-2xl font-display text-[var(--color-text)]">80+</p>
+              <p className="text-[10px] uppercase tracking-widest text-[var(--color-text)]/40 mt-1">Menu Items</p>
+            </div>
+          </motion.div>
 
-      {/* Main content */}
-      <div className="flex-1 max-w-7xl mx-auto w-full px-6 flex flex-col lg:flex-row items-center pt-12 lg:pt-24 pb-12 gap-12">
-        {/* Left — text */}
-        <div className="flex-1 z-10">
-          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="font-mono text-[var(--color-accent)] text-sm tracking-[0.2em] uppercase mb-6">
-            Bali-Inspired · Artisanal Coffee
+          {/* Main Title */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display text-6xl md:text-7xl lg:text-[7rem] leading-[1] tracking-tight mb-8 text-[var(--color-text)]"
+          >
+            Artisanal<br />
+            Coffee.
+          </motion.h1>
+
+          {/* Description */}
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="font-ui text-[var(--color-text)]/60 text-base md:text-lg max-w-md font-light leading-relaxed mb-12"
+          >
+            Bali-inspired specialty brews, global flavors, and all-day dining. 
+            Crafted in Mumbai with 100% non-alcoholic precision.
           </motion.p>
 
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-[var(--color-bg)] leading-tight mb-6">
-            <BlurText text={HEADLINE} delay={0.4} />
-          </h1>
-
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}
-            className="font-ui text-[var(--color-bg)]/70 text-lg mb-8 leading-relaxed">
-            Specialty coffee · Global-inspired drinks · All-day food<br className="hidden sm:block"/>
-            3 locations · 100% non-alcoholic · Open every day
-          </motion.p>
-
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4 }}
-            className="flex flex-wrap gap-4">
-            <MagneticButton className="bg-[var(--color-accent)] text-[var(--color-brand)] font-ui font-bold rounded-full hover:shadow-[var(--shadow-amber)] transition-all">
-              <Link href="/menu" className="block px-7 py-3.5 w-full h-full">
-                Explore the Menu
-              </Link>
-            </MagneticButton>
-            <Link href="/locations"
-              className="border border-[var(--color-accent)]/50 text-[var(--color-accent)] font-ui font-semibold px-7 py-3.5 rounded-full hover:border-[var(--color-accent)] transition-all">
-              Find Your Outlet
+          {/* CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <Link 
+              href="/menu" 
+              className="group flex items-center bg-[var(--color-text)] text-[var(--color-bg)] rounded-none hover:bg-[var(--color-text)]/90 transition-all duration-300"
+            >
+              <span className="font-ui font-medium text-xs uppercase tracking-widest px-8 py-5">
+                Explore Menu
+              </span>
+              <span className="px-5 py-5 border-l border-[var(--color-bg)]/20 flex items-center justify-center group-hover:translate-x-1 transition-transform duration-300">
+                <ArrowRight size={18} strokeWidth={1.5} />
+              </span>
             </Link>
-            <a href="https://www.zomato.com" target="_blank" rel="noreferrer"
-              className="border border-[var(--color-bg)]/20 text-[var(--color-bg)]/70 font-ui text-sm px-5 py-3.5 rounded-full hover:border-[var(--color-bg)]/50 transition-all flex items-center gap-2">
-              🛵 Order Now
-            </a>
+          </motion.div>
+
+          {/* Socials Row */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="mt-20 flex items-center gap-6"
+          >
+            <div className="h-px w-12 bg-[var(--color-text)]/20" />
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-text)]/40">Follow Us</span>
+            <div className="flex gap-4">
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-[var(--color-text)]/10 flex items-center justify-center font-mono text-xs font-medium text-[var(--color-text)]/60 hover:text-[var(--color-bg)] hover:bg-[var(--color-text)] transition-colors duration-300">
+                IG
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-[var(--color-text)]/10 flex items-center justify-center font-mono text-xs font-medium text-[var(--color-text)]/60 hover:text-[var(--color-bg)] hover:bg-[var(--color-text)] transition-colors duration-300">
+                FB
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-[var(--color-text)]/10 flex items-center justify-center font-mono text-xs font-medium text-[var(--color-text)]/60 hover:text-[var(--color-bg)] hover:bg-[var(--color-text)] transition-colors duration-300">
+                X
+              </a>
+            </div>
           </motion.div>
         </div>
 
-        {/* Right — image stack */}
-        <div className="flex-1 w-full relative h-[400px] lg:h-[600px] flex items-center justify-center">
+        {/* Right Column - Floating Image */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          className="relative w-full aspect-square max-w-2xl mx-auto lg:ml-auto flex items-center justify-center"
+        >
+          {/* Radial gradient mask to seamlessly blend the black background of the generated image into the theme */}
+          <div className="absolute inset-0 z-10 pointer-events-none" style={{ background: 'radial-gradient(circle, transparent 40%, var(--color-bg) 70%)' }} />
+          
           <motion.img 
-            style={{ y: y1 }}
-            src="/images/hero1.png" 
-            alt="Beautiful coffee drinks" 
-            className="absolute right-[5%] top-[10%] w-[55%] rounded-2xl object-cover shadow-2xl z-10 border border-[var(--color-bg)]/10"
+            src="/images/splashing-cup.png" 
+            alt="Splashing Artisanal Coffee"
+            animate={{ 
+              y: [-15, 15, -15],
+              rotate: [-1, 1, -1]
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 8, 
+              ease: "easeInOut" 
+            }}
+            className="w-[120%] h-[120%] max-w-none object-contain relative z-0 mix-blend-screen"
           />
-          <motion.img 
-            style={{ y: y2 }}
-            src="/images/hero2.png" 
-            alt="Cold brew in aesthetic cafe" 
-            className="absolute left-[5%] top-[30%] w-[45%] rounded-2xl object-cover shadow-2xl z-20 border border-[var(--color-bg)]/10"
-          />
-          <motion.img 
-            style={{ y: y3 }}
-            src="/images/hero3.png" 
-            alt="Latte art being poured" 
-            className="absolute right-[15%] bottom-[5%] w-[50%] rounded-2xl object-cover shadow-2xl z-30 border border-[var(--color-bg)]/10"
-          />
-        </div>
-      </div>
+        </motion.div>
 
-      {/* Trust strip */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8 }}
-        className="border-t border-[var(--color-mid)]/30 py-4 mt-auto z-10 relative bg-[var(--color-brand)]/80 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-4 sm:gap-6">
-          {TRUST_BADGES.map(badge => (
-            <span key={badge} className="font-mono text-xs text-[var(--color-bg)]/50 tracking-wide text-center uppercase">
-              {badge}
-            </span>
-          ))}
-        </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

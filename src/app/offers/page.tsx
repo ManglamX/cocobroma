@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Tag, Calendar, ChevronRight } from 'lucide-react';
-import { CardContainer, CardBody, CardItem } from '@/components/ui/3d-card';
 
 export default function OffersPage() {
   const offers = [
@@ -28,41 +27,40 @@ export default function OffersPage() {
   ];
 
   return (
-    <main className="min-h-screen pt-24 pb-16 bg-[var(--color-bg)]">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h1 className="font-display text-5xl md:text-6xl text-[var(--color-brand)] mb-6">Current Offers</h1>
-          <p className="font-ui text-[var(--color-text)] opacity-80 text-lg max-w-2xl mx-auto">
+    <main className="min-h-screen pt-32 pb-24 bg-transparent border-t border-[var(--color-text)]/10">
+      <div className="max-w-screen-xl mx-auto px-6">
+        <div className="text-center mb-20 border-b border-[var(--color-text)]/10 pb-12">
+          <p className="font-mono text-[var(--color-text)]/40 tracking-[0.2em] uppercase text-xs mb-6">Specials</p>
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-[var(--color-text)] tracking-tight mb-6">Current Offers.</h1>
+          <p className="font-ui text-[var(--color-text)]/60 font-light text-lg max-w-2xl mx-auto">
             Exclusive deals and seasonal specials for our CocoBroma family.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-0 border-t border-[var(--color-text)]/10 border-l">
           {offers.map(offer => (
-            <CardContainer key={offer.id} containerClassName="w-full h-full py-0" className="w-full h-full">
-              <CardBody className="bg-white rounded-3xl p-8 border border-[var(--color-mid)]/10 shadow-sm relative group block h-full w-full hover:shadow-xl transition-all duration-300">
-                <CardItem translateZ="50" className="absolute top-0 right-0 bg-[var(--color-accent)] text-[var(--color-brand)] text-xs font-bold px-4 py-1 rounded-bl-xl uppercase tracking-wider font-mono z-10">
-                  Active Offer
-                </CardItem>
-                <div className="relative z-10 h-full flex flex-col">
-                  <CardItem translateZ="40" as="h2" className="font-display text-2xl text-[var(--color-brand)] mb-3 pr-20">{offer.title}</CardItem>
-                  <CardItem translateZ="30" as="p" className="font-body text-[var(--color-text)] opacity-80 mb-6 leading-relaxed flex-1">
-                    {offer.desc}
-                  </CardItem>
-                  
-                  <CardItem translateZ="20" className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-auto pt-6 border-t border-[var(--color-mid)]/10">
-                    <div className="flex items-center gap-2 text-sm font-ui text-[var(--color-brand)]/60">
-                      <Calendar size={16} />
-                      <span>{offer.validity}</span>
-                    </div>
-                    <div className="flex items-center gap-2 bg-[var(--color-light)] px-4 py-2 rounded-lg border border-[var(--color-mid)]/20 bg-white">
-                      <Tag size={16} className="text-[var(--color-accent)]" />
-                      <span className="font-mono text-sm font-bold text-[var(--color-brand)]">{offer.code}</span>
-                    </div>
-                  </CardItem>
+            <div key={offer.id} className="p-10 lg:p-14 border-r border-b border-[var(--color-text)]/10 hover:bg-[var(--color-mid)] transition-colors duration-500 group relative flex flex-col">
+              <div className="absolute top-0 right-0 bg-[var(--color-text)] text-[var(--color-bg)] text-[10px] font-medium px-4 py-2 uppercase tracking-widest font-mono z-10">
+                Active Offer
+              </div>
+              <div className="relative z-10 h-full flex flex-col pt-8">
+                <h2 className="font-display text-3xl text-[var(--color-text)] mb-6 pr-12 tracking-tight">{offer.title}</h2>
+                <p className="font-ui text-[var(--color-text)]/60 mb-12 font-light leading-relaxed flex-1">
+                  {offer.desc}
+                </p>
+                
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mt-auto pt-8 border-t border-[var(--color-text)]/10">
+                  <div className="flex items-center gap-3 text-xs uppercase tracking-widest font-mono text-[var(--color-text)]/40">
+                    <Calendar size={16} strokeWidth={1.5} />
+                    <span>{offer.validity}</span>
+                  </div>
+                  <div className="flex items-center gap-3 px-4 py-2 border border-[var(--color-text)]/20">
+                    <Tag size={14} className="text-[var(--color-text)]/40" />
+                    <span className="font-mono text-xs font-medium text-[var(--color-text)]">{offer.code}</span>
+                  </div>
                 </div>
-              </CardBody>
-            </CardContainer>
+              </div>
+            </div>
           ))}
         </div>
       </div>
