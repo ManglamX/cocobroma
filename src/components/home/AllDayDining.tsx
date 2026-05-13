@@ -32,65 +32,61 @@ const FOOD_ITEMS = [
 
 export default function AllDayDining() {
   return (
-    <section className="py-24 bg-[var(--color-bg)]">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
-          <div className="reveal">
-            <p className="font-mono text-[var(--color-accent)] tracking-[0.2em] uppercase text-sm mb-6">Gourmet Food</p>
-            <h2 className="font-display text-4xl md:text-5xl text-[var(--color-brand)] mb-8">Fuel for the All-Day Dreamer</h2>
-            <p className="font-body text-lg text-[var(--color-text)]/70 leading-relaxed mb-8">
+    <section className="py-32 bg-transparent border-t border-[var(--color-text)]/10">
+      <div className="max-w-screen-2xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center mb-24">
+          <div>
+            <p className="font-mono text-[var(--color-text)]/40 tracking-[0.2em] uppercase text-xs mb-8">Gourmet Food</p>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[var(--color-text)] mb-8 tracking-tight">Fuel for the All-Day Dreamer.</h2>
+            <p className="font-ui text-base md:text-lg text-[var(--color-text)]/60 leading-relaxed mb-12 font-light max-w-lg">
               Our kitchen never sleeps. From hearty English breakfasts at 10 AM to late-night pasta cravings at 11 PM, we serve artisanal food that pairs perfectly with your favorite brew.
             </p>
-            <div className="flex flex-wrap gap-6 mb-10">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
-                  <Clock size={20} />
-                </div>
-                <span className="font-ui font-semibold text-sm">Served All Day</span>
+            
+            <div className="flex flex-col gap-6 mb-12 border-l border-[var(--color-text)]/20 pl-6">
+              <div className="flex items-center gap-4">
+                <Clock size={16} className="text-[var(--color-text)]/40" />
+                <span className="font-mono text-xs uppercase tracking-widest text-[var(--color-text)]/80">Served All Day</span>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
-                  <Heart size={20} />
-                </div>
-                <span className="font-ui font-semibold text-sm">Fresh Ingredients</span>
+              <div className="flex items-center gap-4">
+                <Heart size={16} className="text-[var(--color-text)]/40" />
+                <span className="font-mono text-xs uppercase tracking-widest text-[var(--color-text)]/80">Fresh Ingredients</span>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
-                  <Utensils size={20} />
-                </div>
-                <span className="font-ui font-semibold text-sm">Global Recipes</span>
+              <div className="flex items-center gap-4">
+                <Utensils size={16} className="text-[var(--color-text)]/40" />
+                <span className="font-mono text-xs uppercase tracking-widest text-[var(--color-text)]/80">Global Recipes</span>
               </div>
             </div>
-            <Link href="/menu" className="inline-block bg-[var(--color-brand)] text-[var(--color-bg)] font-ui font-bold px-8 py-4 rounded-full hover:bg-[var(--color-accent)] hover:text-[var(--color-brand)] transition-all">
+            
+            <Link href="/menu" className="inline-block border border-[var(--color-text)]/30 text-[var(--color-text)] font-ui font-medium text-xs uppercase tracking-widest px-8 py-4 hover:bg-[var(--color-text)] hover:text-[var(--color-bg)] transition-all">
               View Food Menu
             </Link>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-6 reveal">
+          <div className="grid sm:grid-cols-2 gap-0 border-t border-l border-[var(--color-text)]/10">
             {FOOD_ITEMS.map((item, i) => (
-              <div key={item.name} className="bg-white p-6 rounded-3xl border border-[var(--color-mid)]/5 shadow-sm hover:shadow-md transition-all group">
-                <div className="flex justify-between items-start mb-4">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">{item.category}</span>
-                  <span className="font-mono font-bold text-[var(--color-brand)]">{item.price}</span>
+              <div key={item.name} className="p-8 border-b border-r border-[var(--color-text)]/10 hover:bg-[var(--color-mid)] transition-colors group">
+                <div className="flex justify-between items-start mb-8">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-text)]/40">{item.category}</span>
+                  <span className="font-mono text-sm text-[var(--color-text)]/80">{item.price}</span>
                 </div>
-                <h3 className="font-display text-xl text-[var(--color-brand)] mb-3 group-hover:text-[var(--color-accent)] transition-colors">{item.name}</h3>
-                <p className="font-body text-sm text-[var(--color-text)]/60 leading-relaxed">{item.desc}</p>
+                <h3 className="font-display text-2xl text-[var(--color-text)] mb-4">{item.name}</h3>
+                <p className="font-ui text-sm text-[var(--color-text)]/50 leading-relaxed font-light">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Feature Strip */}
-        <div className="bg-[var(--color-brand)] rounded-[40px] p-8 md:p-12 text-center reveal">
-          <h3 className="font-display text-2xl md:text-3xl text-[var(--color-bg)] mb-4">Hungry? Order to your doorstep.</h3>
-          <p className="font-ui text-[var(--color-bg)]/60 mb-8 max-w-xl mx-auto text-sm md:text-base">
+        <div className="bg-[var(--color-text)] text-[var(--color-bg)] p-12 md:p-16 text-center">
+          <h3 className="font-display text-3xl md:text-4xl mb-6 tracking-tight">Hungry? Order to your doorstep.</h3>
+          <p className="font-ui text-[var(--color-bg)]/80 mb-10 max-w-xl mx-auto text-sm md:text-base font-light">
             Can't make it to the café? We bring the CocoBroma kitchen to you. Freshly prepared and delivered hot.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="https://www.zomato.com" target="_blank" className="px-8 py-3 rounded-full bg-[var(--color-accent)] text-[var(--color-brand)] font-ui font-bold hover:shadow-lg transition-all">
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="https://www.zomato.com" target="_blank" className="px-8 py-4 bg-transparent border border-[var(--color-bg)]/30 text-[var(--color-bg)] font-ui text-xs uppercase tracking-widest hover:border-[var(--color-bg)] transition-all">
               Order on Zomato
             </a>
-            <a href="https://www.swiggy.com" target="_blank" className="px-8 py-3 rounded-full bg-white text-[var(--color-brand)] font-ui font-bold hover:shadow-lg transition-all">
+            <a href="https://www.swiggy.com" target="_blank" className="px-8 py-4 bg-[var(--color-bg)] text-[var(--color-text)] font-ui text-xs uppercase tracking-widest hover:bg-[var(--color-bg)]/90 transition-all">
               Order on Swiggy
             </a>
           </div>

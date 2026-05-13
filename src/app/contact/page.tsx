@@ -2,7 +2,7 @@ import { MapPin, Phone, Mail, Camera, Globe } from 'lucide-react';
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen pt-24 pb-16 bg-[var(--color-bg)]">
+    <main className="min-h-screen pt-24 pb-16 bg-transparent">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <h1 className="font-display text-5xl md:text-6xl text-[var(--color-brand)] mb-6">Contact Us</h1>

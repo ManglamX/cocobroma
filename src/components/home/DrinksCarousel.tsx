@@ -1,8 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ShoppingCart } from 'lucide-react';
-import { useState } from 'react';
-import { CardContainer, CardBody, CardItem } from '@/components/ui/3d-card';
+import { useRef } from 'react';
 
 const SIGNATURE_DRINKS = [
   {
@@ -32,74 +31,92 @@ const SIGNATURE_DRINKS = [
     price: '₹220',
     tags: ['Zesty', 'Iced'],
     color: '#C8853A'
+  },
+  {
+    name: 'Hanoi Classic',
+    type: 'Vietnamese Cold Brew',
+    price: '₹260',
+    tags: ['Strong', 'Sweet'],
+    color: '#A06B50'
   }
 ];
 
 export default function DrinksCarousel() {
-  const [active, setActive] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  const next = () => setActive((active + 1) % SIGNATURE_DRINKS.length);
-  const prev = () => setActive((active - 1 + SIGNATURE_DRINKS.length) % SIGNATURE_DRINKS.length);
+  const scroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      // Get the width of a single card to scroll by that exact amount
+      const cardWidth = window.innerWidth >= 768 ? 400 : 300; 
+      const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
+      
+      carouselRef.current.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
-    <section className="py-24 bg-[var(--color-bg)] overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 reveal">
+    <section className="py-32 bg-transparent border-t border-[var(--color-text)]/10 overflow-hidden">
+      <div className="max-w-screen-2xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
           <div>
-            <p className="font-mono text-[var(--color-accent)] tracking-[0.2em] uppercase text-sm mb-4">The Selection</p>
-            <h2 className="font-display text-4xl md:text-5xl text-[var(--color-brand)]">Signature Sips</h2>
+            <p className="font-mono text-[var(--color-text)]/40 tracking-[0.2em] uppercase text-xs mb-6">The Selection</p>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[var(--color-text)] tracking-tight">Signature Sips.</h2>
           </div>
           <div className="flex gap-4">
-            <button onClick={prev} className="p-3 rounded-full border border-[var(--color-mid)]/20 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all">
-              <ChevronLeft size={24} />
+            <button onClick={() => scroll('left')} className="p-4 border border-[var(--color-text)]/20 text-[var(--color-text)]/60 hover:border-[var(--color-text)] hover:text-[var(--color-bg)] hover:bg-[var(--color-text)] transition-all">
+              <ChevronLeft size={24} strokeWidth={1} />
             </button>
-            <button onClick={next} className="p-3 rounded-full border border-[var(--color-mid)]/20 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all">
-              <ChevronRight size={24} />
+            <button onClick={() => scroll('right')} className="p-4 border border-[var(--color-text)]/20 text-[var(--color-text)]/60 hover:border-[var(--color-text)] hover:text-[var(--color-bg)] hover:bg-[var(--color-text)] transition-all">
+              <ChevronRight size={24} strokeWidth={1} />
             </button>
           </div>
         </div>
 
-        <div className="flex gap-8 overflow-visible">
+        {/* Added native smooth scrolling container with hidden scrollbar */}
+        <div 
+          ref={carouselRef}
+          className="flex gap-0 overflow-x-auto snap-x snap-mandatory border-t border-b border-[var(--color-text)]/10 hide-scrollbar"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {SIGNATURE_DRINKS.map((drink, i) => (
-            <motion.div 
+            <motion.div
               key={drink.name}
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="min-w-[300px] md:min-w-[380px]"
+              className="min-w-[300px] md:min-w-[400px] flex-shrink-0 snap-start"
             >
-              <CardContainer containerClassName="w-full h-full py-0" className="w-full h-full">
-                <CardBody className="bg-white rounded-[32px] p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 border border-[var(--color-mid)]/5 w-full h-full group">
-                  <CardItem translateZ="50"
-                    className="w-full aspect-square rounded-2xl mb-8 flex items-center justify-center relative overflow-hidden"
-                    style={{ backgroundColor: `${drink.color}15` }}
-                  >
-                    {/* Image Placeholder */}
-                    <div className="text-[var(--color-brand)] opacity-20">
-                       <ShoppingCart size={80} strokeWidth={1} />
-                    </div>
-                    <div className="absolute top-4 left-4 flex gap-2">
-                      {drink.tags.map(tag => (
-                        <span key={tag} className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider text-[var(--color-brand)] shadow-sm">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </CardItem>
-
-                  <div className="flex justify-between items-start mb-2">
-                    <CardItem translateZ="40" as="h3" className="font-display text-2xl text-[var(--color-brand)]">{drink.name}</CardItem>
-                    <CardItem translateZ="60" as="span" className="font-mono text-lg font-bold text-[var(--color-accent)]">{drink.price}</CardItem>
+              <div className="p-10 lg:p-14 border-r border-[var(--color-text)]/10 h-full flex flex-col hover:bg-[var(--color-mid)] transition-colors duration-500 group">
+                <div
+                  className="w-full aspect-[4/3] mb-12 flex items-center justify-center relative overflow-hidden"
+                  style={{ backgroundColor: `${drink.color}10` }}
+                >
+                  <div className="text-[var(--color-text)]/20 group-hover:text-[var(--color-text)]/40 transition-colors duration-500">
+                    <ShoppingCart size={64} strokeWidth={1} />
                   </div>
-                  <CardItem translateZ="30" as="p" className="font-ui text-[var(--color-text)]/60 text-sm mb-6">{drink.type}</CardItem>
-                  
-                  <CardItem translateZ="20" className="w-full">
-                    <button className="w-full py-4 rounded-2xl bg-[var(--color-brand)] text-[var(--color-bg)] font-ui font-bold hover:bg-[var(--color-accent)] hover:text-[var(--color-brand)] transition-all flex items-center justify-center gap-2">
-                      Order via WhatsApp
-                    </button>
-                  </CardItem>
-                </CardBody>
-              </CardContainer>
+                  <div className="absolute top-6 left-6 flex gap-3 flex-wrap pr-4">
+                    {drink.tags.map(tag => (
+                      <span key={tag} className="border border-[var(--color-text)]/20 bg-[var(--color-bg)]/80 backdrop-blur-md px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-[var(--color-text)]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="font-display text-2xl lg:text-3xl text-[var(--color-text)] tracking-tight">{drink.name}</h3>
+                  <span className="font-mono text-sm text-[var(--color-text)]/80 mt-2">{drink.price}</span>
+                </div>
+                <p className="font-ui text-[var(--color-text)]/50 text-sm mb-12 font-light flex-1">{drink.type}</p>
+
+                <button className="w-full py-4 border border-[var(--color-text)]/20 text-[var(--color-text)] font-ui text-xs uppercase tracking-widest hover:bg-[var(--color-text)] hover:text-[var(--color-bg)] transition-all">
+                  Order via WhatsApp
+                </button>
+              </div>
             </motion.div>
           ))}
         </div>

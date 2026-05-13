@@ -16,7 +16,7 @@ export default function LocationSinglePage({ params }: { params: { slug: string 
   }
 
   return (
-    <main className="min-h-screen pt-24 pb-16 bg-[var(--color-bg)]">
+    <main className="min-h-screen pt-24 pb-16 bg-transparent">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 items-start">
           
